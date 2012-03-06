@@ -9,13 +9,12 @@ module.exports =
 
   load: (root, options) ->
 
-    { output, paths, dependencies, vendorDependencies } = merge.mergeOptions root, options
+    { identifier, output, paths, dependencies, vendorDependencies } = merge.mergeOptions root, options
 
     package = stitch.createPackage
-
       paths: paths
-
       dependencies: dependencies
+      identifier: identifier
 
     stitch = ->
 
