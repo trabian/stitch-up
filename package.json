@@ -1,0 +1,12 @@
+{
+  "name": "stitch-up",
+  "version": "0.0.1",
+  "description": "CommonJS packaging tool adding package.json support to Stitch",
+  "private": true,
+  "main": "./lib/index.coffee",
+  "dependencies": {
+    "coffee-script": "1.2.x",
+    "underscore": "1.3.x",
+    "stitch": "0.3.x"
+  }
+}
