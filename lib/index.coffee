@@ -53,4 +53,4 @@ module.exports =
     all = ->
       do task for task in [stitch, vendor]
 
-    { stitch, vendor, all }
+    tasks: { stitch, vendor, all }
