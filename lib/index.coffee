@@ -36,8 +36,6 @@ module.exports =
 
     vendor = (callback) ->
 
-      console.log 'vendor'
-
       if _.isEmpty vendorDependencies
         callback()
       else
