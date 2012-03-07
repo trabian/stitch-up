@@ -2,6 +2,8 @@ stitch = require 'stitch'
 fs = require 'fs'
 path = require 'path'
 util = require 'util'
+async = require 'async'
+_ = require 'underscore'
 
 merge = require './utils/merge'
 
@@ -16,7 +18,7 @@ module.exports =
       dependencies: dependencies
       identifier: identifier
 
-    stitch = ->
+    stitch = (callback) ->
 
       fs.mkdir path.dirname(output.app), ->
 
@@ -30,13 +32,19 @@ module.exports =
 
             console.log "Compiled #{output.app}"
 
-    vendor = ->
+            callback?()
 
-      fs.mkdir output.vendor, ->
+    vendor = (callback) ->
 
-        for source in vendorDependencies
+      console.log 'vendor'
 
-          do (source) ->
+      if _.isEmpty vendorDependencies
+        callback()
+      else
+
+        fs.mkdir output.vendor, ->
+
+          async.forEach vendorDependencies, (source, _callback) ->
 
             name = path.basename source
 
@@ -48,8 +56,14 @@ module.exports =
             util.pump inputStream, outputStream, (err) ->
               throw err if err
               console.log "copied #{source} to #{destination}"
+              _callback()
 
-    all = ->
-      do task for task in [stitch, vendor]
+          , (err) ->
+            throw err if err
+            callback?()
+
+    all = (callback) ->
+      console.log 'all?'
+      vendor -> stitch callback
 
     tasks: { stitch, vendor, all }
