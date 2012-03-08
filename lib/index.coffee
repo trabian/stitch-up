@@ -61,7 +61,6 @@ module.exports =
             callback?()
 
     all = (callback) ->
-      console.log 'all?'
       vendor -> stitch callback
 
     tasks: { stitch, vendor, all }
