@@ -3,6 +3,7 @@ fs = require 'fs'
 path = require 'path'
 util = require 'util'
 async = require 'async'
+wrench = require 'wrench'
 _ = require 'underscore'
 
 merge = require './utils/merge'
@@ -11,7 +12,7 @@ module.exports =
 
   load: (root, options) ->
 
-    { identifier, output, paths, dependencies, vendorDependencies } = merge.mergeOptions root, options
+    { identifier, output, paths, dependencies, vendorDependencies, images } = merge.mergeOptions root, options
 
     package = stitch.createPackage
       paths: paths
@@ -60,7 +61,32 @@ module.exports =
             throw err if err
             callback?()
 
+    copyImages = (callback) ->
+
+      if _.isEmpty images
+        callback()
+      else
+
+        fs.mkdir output.images, ->
+
+          async.forEach images, (source, _callback) ->
+
+            destination = output.images
+
+            wrench.copyDirRecursive source, destination, (err) ->
+              throw err if err
+              console.log "copied #{source} to #{destination}"
+              _callback()
+
+          , (err) ->
+            throw err if err
+            callback?()
+
     all = (callback) ->
-      vendor -> stitch callback
+      async.parallel [
+        vendor
+        copyImages
+        stitch
+      ], callback
 
     tasks: { stitch, vendor, all }

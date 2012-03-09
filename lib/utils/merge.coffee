@@ -14,6 +14,7 @@ module.exports =
       paths: []
       dependencies: []
       vendorDependencies: []
+      images: []
 
     jointOptions = _.extend defaults, options.stitch
 
@@ -25,8 +26,9 @@ module.exports =
 
       if stitch = package.stitch
 
-        for field in ['paths', 'dependencies', 'vendorDependencies']
+        for field in ['paths', 'dependencies', 'vendorDependencies', 'images']
           if array = stitch[field]
+            array = [array] unless _.isArray array
             for item in array
               jointOptions[field].push [modulePath, item].join '/'
 
