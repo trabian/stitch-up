@@ -1,7 +1,7 @@
 ## stitch-up
 
 Stitch-up is a CommonJS packaging tool adding package.json support to
-[Sitch](https://github.com/sstephenson/stitch).
+[Stitch](https://github.com/sstephenson/stitch).
 
 Stitch converts a CommonJS module into a single JS file that can be
 included in the browser or, in the case of [titanium-backbone](https://github.com/trabian/titanium-backbone), in a Titanium project. The purpose of stitch-up is to allow the paths, dependencies, and output location for the Stitch packager to be specified in package.json both within the primary project and within any dependent modules.
