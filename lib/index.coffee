@@ -96,10 +96,11 @@ module.exports =
 
               destination = output.images
 
-              wrench.copyDirRecursive source, destination, (err) ->
-                throw err if err
-                console.log "copied #{source} to #{destination}"
-                _callback()
+              wrench.copyDirSyncRecursive source, destination, { preserve: true }
+
+              console.log "copied #{source} to #{destination}"
+
+              _callback()
 
             , (err) ->
               throw err if err
