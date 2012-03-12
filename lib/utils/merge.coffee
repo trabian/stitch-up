@@ -19,13 +19,19 @@ module.exports =
 
     jointOptions = _.extend defaults, options.stitch
 
-    npm.load {}, (err) ->
+    config =
+      json: true
+      long: true
+
+    npm.load config, (err) ->
 
       throw err if err
 
       npm.commands.list [], true, (err, out) ->
 
-        for name, package of out.dependencies
+        deps = flatten out
+
+        for package in deps
 
           if stitch = package.stitch
 
@@ -36,3 +42,28 @@ module.exports =
                   jointOptions[field].push [package.path, item].join '/'
 
         callback jointOptions
+
+flatten = (root, current, queue, seen) ->
+
+  current or= root
+  queue or= []
+  seen or= [root]
+
+  deps = current.dependencies or= {}
+
+  for name, dep of deps
+
+    return if typeof dep isnt "object"
+
+    unless seen.indexOf(dep) is -1
+      dep = deps[d] = Object.create(dep)
+      dep.dependencies = {}
+
+    queue.push dep
+    seen.push dep
+
+  unless queue.length
+    return _.filter seen, (node) -> node.stitch
+  #return root unless queue.length
+
+  return flatten root, queue.shift(), queue, seen
