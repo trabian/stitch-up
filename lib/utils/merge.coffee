@@ -1,3 +1,4 @@
+npm = require 'npm'
 _ = require 'underscore'
 
 moduleNames = (options) ->
@@ -8,7 +9,7 @@ moduleNames = (options) ->
 
 module.exports =
 
-  mergeOptions: (root, options) ->
+  mergeOptions: (root, options, callback) ->
 
     defaults =
       paths: []
@@ -18,18 +19,20 @@ module.exports =
 
     jointOptions = _.extend defaults, options.stitch
 
-    for name in moduleNames(options)
+    npm.load {}, (err) ->
 
-      modulePath = "node_modules/#{name}"
+      throw err if err
 
-      package = require "#{root}/#{modulePath}/package"
+      npm.commands.list [], true, (err, out) ->
 
-      if stitch = package.stitch
+        for name, package of out.dependencies
 
-        for field in ['paths', 'dependencies', 'vendorDependencies', 'images']
-          if array = stitch[field]
-            array = [array] unless _.isArray array
-            for item in array
-              jointOptions[field].push [modulePath, item].join '/'
+          if stitch = package.stitch
 
-    jointOptions
+            for field in ['paths', 'dependencies', 'vendorDependencies', 'images']
+              if array = stitch[field]
+                array = [array] unless _.isArray array
+                for item in array
+                  jointOptions[field].push [package.path, item].join '/'
+
+        callback jointOptions
