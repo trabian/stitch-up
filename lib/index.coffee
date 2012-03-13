@@ -42,7 +42,7 @@ module.exports =
             source = "module.exports = #{handleQuotes md source};"
             module._compile(source, filename)
 
-      stitch = (callback) ->
+      buildStitch = (callback) ->
 
         fs.mkdir path.dirname(output.app), ->
 
@@ -113,7 +113,10 @@ module.exports =
           stitch
         ], callback
 
-      callback { stitch, vendor, all }
+      callback
+        stitch: buildStitch
+        vendor: vendor
+        all: all
 
   load: (root, options) ->
 
