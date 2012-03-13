@@ -27,7 +27,7 @@ module.exports =
       { identifier, output, paths, dependencies, vendorDependencies, images } = merged
 
       package = stitch.createPackage
-        paths: paths
+        paths: paths.reverse()
         dependencies: dependencies
         identifier: identifier
         compilers:
@@ -118,12 +118,12 @@ module.exports =
   load: (root, options) ->
 
     tasks:
-      stitch: =>
+      stitch: (callback) =>
         @loadBuilders root, options, (builders) ->
-          builders.stitch()
-      vendor: =>
+          builders.stitch callback
+      vendor: (callback) =>
         @loadBuilders root, options, (builders) ->
-          builders.vendor()
-      all: =>
+          builders.vendor callback
+      all: (callback) =>
         @loadBuilders root, options, (builders) ->
-          builders.all()
+          builders.all callback
