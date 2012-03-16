@@ -110,7 +110,7 @@ module.exports =
         async.parallel [
           vendor
           copyImages
-          stitch
+          buildStitch
         ], callback
 
       callback
