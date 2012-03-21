@@ -13,10 +13,4 @@ See the [package.json for titanium-backbone](https://github.com/trabian/titanium
 
 ### Current status
 
-This project is still in early stages, but it works. Right now the
-paths and dependencies are only included from packages one-level deep
-(not including the primary project). This will eventually improved to
-follow the whole dependency tree but since we're inspecting the
-package.json files directly we need to either make sure to avoid
-circular dependencies or leverage npm programatically to avoid the need
-to handle the depencency structure ourselves.
+This project is still in early stages, but it works.
