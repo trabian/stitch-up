@@ -4,6 +4,14 @@
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "private": true,
   "main": "./lib/index.coffee",
+  "author": {
+    "name": "Matt Dean",
+    "email": "matt@trabian.com"
+  },
+  "bugs": {
+    "url": "http://github.com/trabian/stitch-up/issues",
+    "email": "matt@trabian.com"
+  },
   "dependencies": {
     "async": "0.1.x",
     "coffee-script": "1.2.x",
