@@ -7,6 +7,13 @@ moduleNames = (options) ->
 
   _.union _.flatten keys
 
+findPackagePath = (deps, name, callback) ->
+
+  for dependency in deps
+    for _name, childDependency of dependency.dependencies
+      if name is _name
+        return childDependency.path
+
 module.exports =
 
   mergeOptions: (root, options, callback) ->
@@ -39,7 +46,17 @@ module.exports =
               if array = stitch[field]
                 array = [array] unless _.isArray array
                 for item in array
-                  jointOptions[field].push [package.path, item].join '/'
+
+                  if match = item.match '(.*):(.*)'
+
+                    [full, dependentPackage, dependentPath] = match
+
+                    path = [findPackagePath(deps, dependentPackage), dependentPath].join '/'
+
+                  else
+                    path = [package.path, item].join '/'
+
+                  jointOptions[field].push path
 
         callback jointOptions
 
@@ -67,3 +84,4 @@ flatten = (root, current, queue, seen) ->
   #return root unless queue.length
 
   return flatten root, queue.shift(), queue, seen
+
