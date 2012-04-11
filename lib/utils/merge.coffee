@@ -18,13 +18,12 @@ module.exports =
 
   mergeOptions: (root, options, callback) ->
 
-    defaults =
+    jointOptions =
       paths: []
       dependencies: []
       vendorDependencies: []
       images: []
-
-    jointOptions = _.extend defaults, options.stitch
+      output: options.stitch.output
 
     config =
       json: true
