@@ -20,6 +20,7 @@ module.exports =
 
     jointOptions =
       paths: []
+      testPaths: []
       dependencies: []
       vendorDependencies: []
       images: []
@@ -41,7 +42,7 @@ module.exports =
 
           if stitch = package.stitch
 
-            for field in ['paths', 'dependencies', 'vendorDependencies', 'images']
+            for field in ['paths', 'testPaths', 'dependencies', 'vendorDependencies', 'images']
               if array = stitch[field]
                 array = [array] unless _.isArray array
                 for item in array

@@ -24,23 +24,31 @@ module.exports =
 
     merge.mergeOptions root, options, (merged) ->
 
-      { identifier, output, paths, dependencies, vendorDependencies, images } = merged
+      { identifier, output, paths, testPaths, dependencies, vendorDependencies, images } = merged
+
+      compilers =
+
+        jade: (module, filename) ->
+          source = fs.readFileSync(filename, 'utf8')
+          source = "module.exports = " + jade.compile(source, compileDebug: false, client: true) + ";"
+          module._compile(source, filename)
+
+        md: (module, filename) ->
+          source = fs.readFileSync(filename, 'utf8')
+          source = "module.exports = #{handleQuotes md source};"
+          module._compile(source, filename)
 
       package = stitch.createPackage
         paths: paths.reverse()
         dependencies: dependencies
         identifier: identifier
-        compilers:
+        compilers: compilers
 
-          jade: (module, filename) ->
-            source = fs.readFileSync(filename, 'utf8')
-            source = "module.exports = " + jade.compile(source, compileDebug: false, client: true) + ";"
-            module._compile(source, filename)
-
-          md: (module, filename) ->
-            source = fs.readFileSync(filename, 'utf8')
-            source = "module.exports = #{handleQuotes md source};"
-            module._compile(source, filename)
+      testPackage = stitch.createPackage
+        paths: _.flatten [testPaths.reverse(), paths.reverse()]
+        dependencies: dependencies
+        identifier: identifier
+        compilers: compilers
 
       buildStitch = (callback) ->
 
@@ -57,6 +65,20 @@ module.exports =
               console.log "Compiled #{output.app}"
 
               callback?()
+
+        if testPath = output.test
+
+          fs.mkdir path.dirname(testPath), ->
+
+            testPackage.compile (err, source) ->
+
+              throw err if err
+
+              fs.writeFile testPath, source, (err) ->
+
+                throw err if err
+
+                console.log "Compiled #{testPath}"
 
       vendor = (callback) ->
 
