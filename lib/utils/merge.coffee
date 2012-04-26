@@ -25,6 +25,7 @@ module.exports =
       vendorDependencies: []
       images: []
       output: options.stitch.output
+      identifier: options.stitch.identifier
 
     config =
       json: true
