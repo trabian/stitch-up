@@ -37,9 +37,9 @@ module.exports =
 
         deps = flatten out
 
-        for package in deps
+        for pkg in deps
 
-          if stitch = package.stitch
+          if stitch = pkg.stitch
 
             for field in ['paths', 'dependencies', 'vendorDependencies', 'images']
               if array = stitch[field]
@@ -53,7 +53,7 @@ module.exports =
                     path = [findPackagePath(deps, dependentPackage), dependentPath].join '/'
 
                   else
-                    path = [package.path, item].join '/'
+                    path = [pkg.path, item].join '/'
 
                   jointOptions[field].push path
 
