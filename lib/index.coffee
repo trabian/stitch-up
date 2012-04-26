@@ -38,7 +38,7 @@ module.exports =
           source = "module.exports = #{handleQuotes md source};"
           module._compile(source, filename)
 
-      package = stitch.createPackage
+      pkg = stitch.createPackage
         paths: paths.reverse()
         dependencies: dependencies
         identifier: identifier
@@ -54,7 +54,7 @@ module.exports =
 
         fs.mkdir path.dirname(output.app), ->
 
-          package.compile (err, source) ->
+          pkg.compile (err, source) ->
 
             throw err if err
 
