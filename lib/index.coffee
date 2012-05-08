@@ -26,6 +26,9 @@ module.exports =
 
       { identifier, output, paths, testPaths, dependencies, vendorDependencies, images } = merged
 
+      paths.reverse()
+      testPaths.reverse()
+
       compilers =
 
         jade: (module, filename) ->
@@ -38,14 +41,10 @@ module.exports =
           source = "module.exports = #{handleQuotes md source};"
           module._compile(source, filename)
 
-      pkg = stitch.createPackage
-        paths: paths.reverse()
-        dependencies: dependencies
-        identifier: identifier
-        compilers: compilers
+      pkg = stitch.createPackage { paths, dependencies, identifier, compilers }
 
       testPackage = stitch.createPackage
-        paths: _.flatten [testPaths.reverse(), paths.reverse()]
+        paths: _.flatten [testPaths, paths]
         dependencies: dependencies
         identifier: identifier
         compilers: compilers
