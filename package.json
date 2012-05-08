@@ -3,6 +3,9 @@
   "version": "0.3.3",
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "main": "./lib/index.coffee",
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
   "homepage": "https://github.com/trabian/stitch-up",
   "author": {
     "name": "Matt Dean",
