@@ -24,7 +24,7 @@ module.exports =
 
     merge.mergeOptions root, options, (merged) ->
 
-      { identifier, output, paths, testPaths, dependencies, vendorDependencies, images } = merged
+      { identifier, output, paths, testPaths, dependencies, vendorDependencies, testDependencies, images } = merged
 
       paths.reverse()
       testPaths.reverse()
@@ -45,8 +45,8 @@ module.exports =
 
       testPackage = stitch.createPackage
         paths: _.flatten [testPaths, paths]
-        dependencies: dependencies
         identifier: identifier
+        dependencies: _.flatten [dependencies, testDependencies]
         compilers: compilers
 
       buildStitch = (callback) ->

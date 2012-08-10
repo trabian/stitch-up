@@ -22,6 +22,7 @@ module.exports =
       paths: []
       testPaths: []
       dependencies: []
+      testDependencies: []
       vendorDependencies: []
       images: []
       output: options.stitch.output
@@ -43,7 +44,7 @@ module.exports =
 
           if stitch = pkg.stitch
 
-            for field in ['paths', 'testPaths', 'dependencies', 'vendorDependencies', 'images']
+            for field in ['paths', 'testPaths', 'dependencies', 'testDependencies', 'vendorDependencies', 'images']
               if array = stitch[field]
                 array = [array] unless _.isArray array
                 for item in array
