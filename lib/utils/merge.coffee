@@ -60,6 +60,16 @@ module.exports =
 
                   jointOptions[field].push path
 
+              jointOptions[field] = _.uniq jointOptions[field], false, (path) ->
+
+                name = _.last path.split '/'
+
+                # Remove duplicate .js files
+                if name.match /\.js$/
+                  name
+                else
+                  path
+
         callback jointOptions
 
 flatten = (root, current, queue, seen) ->
@@ -72,14 +82,14 @@ flatten = (root, current, queue, seen) ->
 
   for name, dep of deps
 
-    return if typeof dep isnt "object"
+    if typeof dep is 'object'
 
-    unless seen.indexOf(dep) is -1
-      dep = deps[d] = Object.create(dep)
-      dep.dependencies = {}
+      unless seen.indexOf(dep) is -1
+        dep = deps[d] = Object.create(dep)
+        dep.dependencies = {}
 
-    queue.push dep
-    seen.push dep
+      queue.push dep
+      seen.push dep
 
   unless queue.length
     return _.filter seen, (node) -> node.stitch
