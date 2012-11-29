@@ -22,6 +22,8 @@ module.exports =
 
   loadBuilders: (root, options, callback) ->
 
+    sourceMapOut = '.stitch_source'
+
     merge.mergeOptions root, options, (merged) ->
 
       { identifier, output, paths, testPaths, dependencies, vendorDependencies, testDependencies, images } = merged
@@ -51,27 +53,33 @@ module.exports =
 
       buildStitch = (callback) ->
 
-        fs.mkdir path.dirname(output.app), ->
+        if appPath = output.app
 
-          pkg.compile (err, source) ->
+          fs.mkdir path.dirname(appPath), ->
 
+            pkg.compile (err, source) ->
+
+              throw err if err
+
+              fs.writeFile output.app, source, (err) ->
+
+                throw err if err
+
+                console.log "Compiled #{output.app}"
+
+                callback?()
+
+        testPackage.compile (err, source, sourceMap) ->
+
+          throw err if err
+
+          fs.writeFile sourceMapOut, JSON.stringify(sourceMap), (err) ->
             throw err if err
+            console.log "Created #{sourceMapOut}"
 
-            fs.writeFile output.app, source, (err) ->
+          if testPath = output.test
 
-              throw err if err
-
-              console.log "Compiled #{output.app}"
-
-              callback?()
-
-        if testPath = output.test
-
-          fs.mkdir path.dirname(testPath), ->
-
-            testPackage.compile (err, source) ->
-
-              throw err if err
+            fs.mkdir path.dirname(testPath), ->
 
               fs.writeFile testPath, source, (err) ->
 
@@ -81,7 +89,7 @@ module.exports =
 
       vendor = (callback) ->
 
-        if _.isEmpty vendorDependencies
+        if _.isEmpty(vendorDependencies) or ! output.vendor
           callback()
         else
 
@@ -107,7 +115,7 @@ module.exports =
 
       copyImages = (callback) ->
 
-        if _.isEmpty images
+        if _.isEmpty(images) or ! output.images
           callback()
         else
 
