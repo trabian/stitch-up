@@ -4,7 +4,7 @@
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "main": "./lib/index.coffee",
   "publishConfig": {
-    "registry": "http://registry.npmjs.org"
+    "registry": "http://npm.trabian.iriscouch.com"
   },
   "homepage": "https://github.com/trabian/stitch-up",
   "author": {
