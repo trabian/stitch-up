@@ -1,6 +1,6 @@
 {
   "name": "stitch-up",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "main": "./lib/index.coffee",
   "publishConfig": {
