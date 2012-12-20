@@ -23,6 +23,7 @@
     "stitch": "git://github.com/trabian/stitch.git",
     "jade": "0.20.x",
     "node-markdown": "0.1.x",
+    "uglify-js": "2.2.x",
     "wrench": "1.3.x"
   }
 }
