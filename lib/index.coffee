@@ -31,6 +31,8 @@ module.exports =
       paths.reverse()
       testPaths.reverse()
 
+      paths = _.uniq paths, false, (path) -> _.last path.split 'node_modules/'
+
       compilers =
 
         jade: (module, filename) ->
