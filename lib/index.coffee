@@ -70,6 +70,7 @@ module.exports =
                 console.log "Compiled #{output.app}"
 
                 callback?()
+      buildTest = (callback) ->
 
         testPackage.compile (err, source, sourceMap) ->
 
@@ -144,10 +145,14 @@ module.exports =
           buildStitch
         ], callback
 
+      test = (callback) ->
+        buildTest callback
+
       callback
         stitch: buildStitch
         vendor: vendor
         all: all
+        test: test
 
   load: (root, options) ->
 
@@ -161,3 +166,6 @@ module.exports =
       all: (callback) =>
         @loadBuilders root, options, (builders) ->
           builders.all callback
+      test: (callback) =>
+        @loadBuilders root, options, (builders) ->
+          builders.test callback
