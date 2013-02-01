@@ -1,6 +1,6 @@
 {
   "name": "stitch-up",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "main": "./lib/index.coffee",
   "publishConfig": {
@@ -17,10 +17,10 @@
   },
   "dependencies": {
     "async": "0.1.x",
-    "coffee-script": "1.2.x",
+    "coffee-script": "1.4.x",
     "npm": "1.1.x",
     "underscore": "1.4.x",
-    "stitch": "git://github.com/trabian/stitch.git",
+    "stitch": "git://github.com/trabian/stitch.git#coffee-1.4",
     "jade": "0.20.x",
     "node-markdown": "0.1.x",
     "uglify-js": "2.2.x",
