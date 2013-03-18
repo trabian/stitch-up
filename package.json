@@ -20,7 +20,7 @@
     "coffee-script": "1.4.x",
     "npm": "1.1.x",
     "underscore": "1.4.x",
-    "stitch": "git://github.com/trabian/stitch.git#coffee-1.4",
+    "stitch": "git://github.com/trabian/stitch.git#global_modules",
     "jade": "0.20.x",
     "node-markdown": "0.1.x",
     "uglify-js": "2.2.x",
