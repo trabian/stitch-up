@@ -60,9 +60,13 @@ module.exports =
 
           fs.mkdir path.dirname(appPath), ->
 
-            pkg.compile (err, source) ->
+            pkg.compile (err, source, sourceMap) ->
 
               throw err if err
+
+              fs.writeFile sourceMapOut, JSON.stringify(sourceMap), (err) ->
+                throw err if err
+                console.log "Created #{sourceMapOut}"
 
               fs.writeFile output.app, source, (err) ->
 
@@ -112,10 +116,6 @@ module.exports =
         testPackage.compile (err, source, sourceMap) ->
 
           throw err if err
-
-          fs.writeFile sourceMapOut, JSON.stringify(sourceMap), (err) ->
-            throw err if err
-            console.log "Created #{sourceMapOut}"
 
           if testPath = output.test
 
