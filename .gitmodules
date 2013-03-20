@@ -1,0 +1,3 @@
+[submodule "submodules/stitch"]
+	path = submodules/stitch
+	url = git://github.com/trabian/stitch.git
