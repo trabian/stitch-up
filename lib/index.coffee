@@ -7,7 +7,6 @@ wrench = require 'wrench'
 jade = require 'jade'
 _ = require 'underscore'
 md = require('node-markdown').Markdown
-UglifyJS = require 'uglify-js'
 
 merge = require './utils/merge'
 
@@ -73,43 +72,6 @@ module.exports =
                 throw err if err
 
                 console.log "Compiled #{output.app}"
-
-                if output.minified
-
-                  uglyOptions = {}
-
-                  minifiedPath = output.minified
-
-                  if _.isObject output.minified
-
-                    minifiedPath = output.minified.out
-
-                    if output.minified.sourceMap
-                      uglyOptions.outSourceMap = "app.js"
-
-                  minified = UglifyJS.minify output.app, uglyOptions
-
-                  fs.writeFile minifiedPath, minified.code, (err) ->
-
-                    throw err if err
-
-                    console.log "Minified #{minifiedPath}"
-
-                    if sourceMap = output.minified?.sourceMap
-
-                      fs.writeFile sourceMap, minified.map, (err) ->
-
-                        throw err if err
-
-                        console.log "Created source map #{sourceMap}"
-
-                        callback?()
-
-                    else
-                      callback?()
-
-                else
-                  callback?()
 
       buildTest = (callback) ->
 

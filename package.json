@@ -1,6 +1,6 @@
 {
   "name": "stitch-up",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "main": "./lib/index.coffee",
   "publishConfig": {
@@ -26,7 +26,6 @@
     "stitch": "git://github.com/trabian/stitch.git#79f2ae0f7",
     "jade": "0.20.x",
     "node-markdown": "0.1.x",
-    "uglify-js": "2.2.x",
     "wrench": "1.3.x"
   }
 }
