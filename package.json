@@ -1,11 +1,8 @@
 {
   "name": "stitch-up",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "description": "CommonJS packaging tool adding package.json support to Stitch",
   "main": "./lib/index.coffee",
-  "publishConfig": {
-    "registry": "http://npm.trabian.iriscouch.com"
-  },
   "homepage": "https://github.com/trabian/stitch-up",
   "author": {
     "name": "Matt Dean",
@@ -14,9 +11,6 @@
   "bugs": {
     "url": "https://github.com/trabian/stitch-up/issues",
     "email": "matt@trabian.com"
-  },
-  "scripts": {
-    "preinstall": "cd node_modules/stitch && npm install"
   },
   "dependencies": {
     "async": "0.1.x",
