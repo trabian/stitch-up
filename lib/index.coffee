@@ -73,6 +73,8 @@ module.exports =
 
                 console.log "Compiled #{output.app}"
 
+                callback?()
+
       buildTest = (callback) ->
 
         testPackage.compile (err, source, sourceMap) ->
@@ -88,6 +90,8 @@ module.exports =
                 throw err if err
 
                 console.log "Compiled #{testPath}"
+
+                callback?()
 
       vendor = (callback) ->
 
