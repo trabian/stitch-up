@@ -13,7 +13,7 @@
     "email": "matt@trabian.com"
   },
   "scripts": {
-    "preinstall": "cd node_modules/stitch && npm install"
+    "preinstall": "cd ./node_modules/stitch && npm install"
   },
   "dependencies": {
     "async": "0.1.x",
