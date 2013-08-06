@@ -12,12 +12,15 @@
     "url": "https://github.com/trabian/stitch-up/issues",
     "email": "matt@trabian.com"
   },
+  "scripts": {
+    "preinstall": "cd ./node_modules/stitch && npm install"
+  },
   "dependencies": {
     "async": "0.1.x",
     "coffee-script": "1.4.x",
-    "npm": "1.1.x",
+    "npm": "1.3.x",
     "underscore": "1.4.x",
-    "stitch": "git://github.com/trabian/stitch.git#79f2ae0f7",
+    "stitch": "*",
     "jade": "0.20.x",
     "node-markdown": "0.1.x",
     "uglify-js": "2.2.x",

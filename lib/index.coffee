@@ -74,6 +74,7 @@ module.exports =
 
                 console.log "Compiled #{output.app}"
 
+<<<<<<< HEAD
                 if output.minified
 
                   uglyOptions = {}
@@ -110,6 +111,9 @@ module.exports =
 
                 else
                   callback?()
+=======
+                callback?()
+>>>>>>> 776d9d1660e55ff6086e775ee370f996a6f26a28
 
       buildTest = (callback) ->
 
@@ -126,6 +130,8 @@ module.exports =
                 throw err if err
 
                 console.log "Compiled #{testPath}"
+
+                callback?()
 
       vendor = (callback) ->
 
