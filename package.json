@@ -23,7 +23,7 @@
     "stitch": "*",
     "jade": "0.20.x",
     "node-markdown": "0.1.x",
-    "uglify-js": "2.2.x",
+    "uglify-js": "3.6.x",
     "wrench": "1.3.x"
   }
 }
